@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <TIP.LimitArc>Limit turret idle position</TIP.LimitArc>
+  <TIP.Rotation>Idle position: {0} degrees</TIP.Rotation>
+  <TIP.Deviation>Allowed deviation: {0} degrees</TIP.Deviation>
+  <TIP.SetLimit>Idle position</TIP.SetLimit>
+  <TIP.SetLimitOn>Idle position limited to {0} degrees
+Deviation of {1} degrees</TIP.SetLimitOn>
+  <TIP.SetLimitOff>Idle position currently not limited</TIP.SetLimitOff>
+</LanguageData>
