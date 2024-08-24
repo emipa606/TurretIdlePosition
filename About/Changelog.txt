@@ -1,5 +1,8 @@
 # Changelog for TurretIdlePosition
 
+1.5.1 - Turret should now move correctly when the allowed arc passes 0
+
+
 1.5.0 - First publish
 Used DeepL to update translations for ChineseSimplified, French, German
 

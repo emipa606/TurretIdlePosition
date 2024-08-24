@@ -1,7 +1,6 @@
+using System;
 using HarmonyLib;
 using RimWorld;
-using UnityEngine;
-using Verse;
 
 namespace TurretIdlePosition;
 
@@ -39,20 +38,35 @@ public static class TurretTop_TurretTopTick
             return;
         }
 
-        var acceptableRange = new FloatRange(tuple.Item1 + FullCircle - tuple.Item2,
-            tuple.Item1 + FullCircle + tuple.Item2);
+        var minValue = (tuple.Item1 - tuple.Item2 + 360) % 360;
+        var maxValue = (tuple.Item1 + tuple.Item2) % 360;
 
-        if (acceptableRange.Includes(__instance.CurRotation + FullCircle))
+        if (minValue > maxValue)
         {
-            return;
+            if (__instance.CurRotation > minValue || __instance.CurRotation < maxValue)
+            {
+                return;
+            }
+
+            if (Math.Max(minValue - __instance.CurRotation, __instance.CurRotation - maxValue) >
+                Math.Max(minValue - __state, __state - maxValue))
+            {
+                return;
+            }
         }
-
-        var stateDifference = Mathf.Abs(acceptableRange.Average - (__state + FullCircle));
-        var curRotationDifference = Mathf.Abs(acceptableRange.Average - (__instance.CurRotation + FullCircle));
-
-        if (stateDifference > curRotationDifference)
+        else
         {
-            return;
+            if (__instance.CurRotation > minValue && __instance.CurRotation < maxValue)
+            {
+                return;
+            }
+
+            if (Math.Min((__instance.CurRotation - minValue + 360) % 360,
+                    (maxValue - __instance.CurRotation + 360) % 360) < Math.Min((__state - minValue + 360) % 360,
+                    (maxValue - __state + 360) % 360))
+            {
+                return;
+            }
         }
 
         __instance.CurRotation = __state;
