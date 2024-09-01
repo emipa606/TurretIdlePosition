@@ -1,5 +1,8 @@
 # Changelog for TurretIdlePosition
 
+1.5.2 - Now shows a preview of the rotation and deviation. Made the dialog movable
+
+
 1.5.1 - Turret should now move correctly when the allowed arc passes 0
 
 
