@@ -8,4 +8,5 @@
   <TIP.SetLimitOn>空闲位置限制为{0}度
 偏差 {1} 度</TIP.SetLimitOn>
   <TIP.SetLimitOff>空闲位置目前不受限制</TIP.SetLimitOff>
+  <TIP.UpdatedAll>更新所有 {0} 选定炮塔的设置</TIP.UpdatedAll>
 </LanguageData>

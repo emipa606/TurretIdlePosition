@@ -1,5 +1,9 @@
 # Changelog for TurretIdlePosition
 
+1.5.3 - Should now be possible to change values for multiple turrets at the same time
+Used DeepL to update translations for ChineseSimplified, French, German
+
+
 1.5.2 - Now shows a preview of the rotation and deviation. Made the dialog movable
 
 

@@ -25,6 +25,7 @@ public static class Building_Turret_GetGizmos
                     continue;
                 }
 
+                TurretIdlePosition.AllPossibleTurrets.Add(type);
                 yield return getGizmoMethod;
             }
         }

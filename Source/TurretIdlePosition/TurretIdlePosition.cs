@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
@@ -15,6 +17,8 @@ public static class TurretIdlePosition
 
     public static readonly Material arcMaterial =
         SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.6f, 1f, 0.6f, 0.6f));
+
+    public static List<Type> AllPossibleTurrets = [];
 
     static TurretIdlePosition()
     {
