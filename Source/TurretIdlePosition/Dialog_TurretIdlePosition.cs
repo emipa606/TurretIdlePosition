@@ -106,9 +106,9 @@ public class Dialog_TurretIdlePosition : Window
         }
 
         var degreesWide = (int)Math.Max(deviation, 5);
-        var center = buildingTurret.DrawPos + (Quaternion.AngleAxis(rotation, Vector3.up) * Vector3.forward * 0.8f);
-        Graphics.DrawMesh(MeshPool.pies[degreesWide], center,
-            Quaternion.AngleAxis(rotation + ((float)degreesWide / 2) - 90f, Vector3.up), TurretIdlePosition.arcMaterial,
+        var center = buildingTurret.DrawPos;
+        Graphics.DrawMesh(MeshPool.pies[degreesWide * 2], center + new Vector3(0, 0.3f, 0),
+            Quaternion.AngleAxis(rotation + degreesWide - 90f, Vector3.up), TurretIdlePosition.arcMaterial,
             0);
         if (!extraTurrets.Any())
         {
@@ -117,9 +117,9 @@ public class Dialog_TurretIdlePosition : Window
 
         foreach (var extraTurret in extraTurrets)
         {
-            center = extraTurret.DrawPos + (Quaternion.AngleAxis(rotation, Vector3.up) * Vector3.forward * 0.8f);
-            Graphics.DrawMesh(MeshPool.pies[degreesWide], center,
-                Quaternion.AngleAxis(rotation + ((float)degreesWide / 2) - 90f, Vector3.up),
+            center = extraTurret.DrawPos;
+            Graphics.DrawMesh(MeshPool.pies[degreesWide * 2], center + new Vector3(0, 0.3f, 0),
+                Quaternion.AngleAxis(rotation + degreesWide - 90f, Vector3.up),
                 TurretIdlePosition.arcMaterial,
                 0);
         }

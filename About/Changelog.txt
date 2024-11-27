@@ -1,5 +1,8 @@
 # Changelog for TurretIdlePosition
 
+1.5.4 - Fixed the arch-preview visuals
+
+
 1.5.3 - Should now be possible to change values for multiple turrets at the same time
 Used DeepL to update translations for ChineseSimplified, French, German
 
