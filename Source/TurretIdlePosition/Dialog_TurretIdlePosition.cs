@@ -41,7 +41,20 @@ public class Dialog_TurretIdlePosition : Window
         }
     }
 
-    public override Vector2 InitialSize => new Vector2(300, 150);
+    public override Vector2 InitialSize => new Vector2(300, 170);
+
+    private bool shiftIsHeld => Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+
+    public override void PostOpen()
+    {
+        base.PostOpen();
+        if (!windowRect.ExpandedBy(50).Contains(buildingTurret.DrawPos.MapToUIPosition()))
+        {
+            return;
+        }
+
+        windowRect.y = buildingTurret.DrawPos.MapToUIPosition().y - windowRect.height - 50;
+    }
 
     public override void DoWindowContents(Rect inRect)
     {
@@ -72,6 +85,12 @@ public class Dialog_TurretIdlePosition : Window
             listing_Standard.Label("TIP.Deviation".Translate(tuple.Item2));
             deviation = Widgets.HorizontalSlider(listing_Standard.GetRect(20), tuple.Item2, 0, 179f, false, null,
                 null, null, 1);
+            if (shiftIsHeld)
+            {
+                rotation = Mathf.Clamp((float)(Math.Round(rotation / 5.0) * 5), 0, 359f);
+                deviation = Mathf.Clamp((float)(Math.Round(deviation / 5.0) * 5), 0, 179f);
+            }
+
             positionGameComponent.AddTurretIdlePosition(buildingTurret, rotation, deviation);
             if (extraTurrets.Any())
             {
@@ -80,6 +99,11 @@ public class Dialog_TurretIdlePosition : Window
                     positionGameComponent.AddTurretIdlePosition(extraTurret, rotation, deviation);
                 }
             }
+
+            var originalFont = Text.Font;
+            Text.Font = GameFont.Tiny;
+            listing_Standard.Label("TIP.HoldShift".Translate());
+            Text.Font = originalFont;
         }
         else
         {
@@ -95,7 +119,6 @@ public class Dialog_TurretIdlePosition : Window
 
         listing_Standard.End();
     }
-
 
     public override void WindowUpdate()
     {

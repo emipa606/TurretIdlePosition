@@ -2,7 +2,7 @@
 <ModSyncNinjaData>
   <ID>bb1c7f59-3c17-40bb-ac20-8f9b153f67af</ID>
   <ModName>Turret Idle Position</ModName>
-  <Version>1.5.4</Version>
+  <Version>1.5.5</Version>
   <SaveBreaking>False</SaveBreaking>
   <Host name="Github">
     <Owner>emipa606</Owner>

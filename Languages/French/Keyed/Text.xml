@@ -9,4 +9,5 @@
 Déviation de {1} degrés</TIP.SetLimitOn>
   <TIP.SetLimitOff>La position inactive n'est actuellement pas limitée</TIP.SetLimitOff>
   <TIP.UpdatedAll>Paramètres mis à jour pour toutes les tourelles {0} sélectionnées</TIP.UpdatedAll>
+  <TIP.HoldShift>Maintenir le levier de vitesse pour des incréments de 5 degrés</TIP.HoldShift>
 </LanguageData>

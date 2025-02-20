@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <TIP.LimitArc>Limit turret idle position</TIP.LimitArc>
+  <TIP.HoldShift>Hold shift for 5 degree increments</TIP.HoldShift>
   <TIP.UpdatedAll>Updated settings for all {0} selected turrets</TIP.UpdatedAll>
   <TIP.Rotation>Idle position: {0} degrees</TIP.Rotation>
   <TIP.Deviation>Allowed deviation: {0} degrees</TIP.Deviation>

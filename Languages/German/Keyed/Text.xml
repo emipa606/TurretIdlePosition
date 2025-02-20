@@ -9,4 +9,5 @@
 Abweichung von {1} Grad</TIP.SetLimitOn>
   <TIP.SetLimitOff>Leerlaufposition derzeit nicht begrenzt</TIP.SetLimitOff>
   <TIP.UpdatedAll>Aktualisierte Einstellungen für alle {0} ausgewählten Geschütztürme</TIP.UpdatedAll>
+  <TIP.HoldShift>Verschiebung für 5-Grad-Schritte halten</TIP.HoldShift>
 </LanguageData>

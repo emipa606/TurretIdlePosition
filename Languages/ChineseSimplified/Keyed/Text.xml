@@ -9,4 +9,5 @@
 偏差 {1} 度</TIP.SetLimitOn>
   <TIP.SetLimitOff>空闲位置目前不受限制</TIP.SetLimitOff>
   <TIP.UpdatedAll>更新所有 {0} 选定炮塔的设置</TIP.UpdatedAll>
+  <TIP.HoldShift>保持移位 5 度增量</TIP.HoldShift>
 </LanguageData>
