@@ -54,6 +54,11 @@ public static class Building_Turret_GetGizmos
             return;
         }
 
+        if (__instance.Faction is not { IsPlayer: true })
+        {
+            return;
+        }
+
         var icon = TurretIdlePosition.OffIcon;
         string defaultDesc = "TIP.SetLimitOff".Translate();
         if (positionGameComponent.TryGetTurretIdlePosition(__instance, out var values))

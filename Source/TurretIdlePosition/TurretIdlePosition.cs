@@ -18,7 +18,7 @@ public static class TurretIdlePosition
     public static readonly Material arcMaterial =
         SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.6f, 1f, 0.6f, 0.6f));
 
-    public static List<Type> AllPossibleTurrets = [];
+    public static readonly List<Type> AllPossibleTurrets = [];
 
     static TurretIdlePosition()
     {

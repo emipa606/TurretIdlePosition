@@ -38,8 +38,8 @@ public static class TurretTop_TurretTopTick
             return;
         }
 
-        var minValue = (tuple.Item1 - tuple.Item2 + 360) % 360;
-        var maxValue = (tuple.Item1 + tuple.Item2) % 360;
+        var minValue = (tuple.Item1 - tuple.Item2 + FullCircle) % FullCircle;
+        var maxValue = (tuple.Item1 + tuple.Item2) % FullCircle;
 
         if (minValue > maxValue)
         {
@@ -61,9 +61,10 @@ public static class TurretTop_TurretTopTick
                 return;
             }
 
-            if (Math.Min((__instance.CurRotation - minValue + 360) % 360,
-                    (maxValue - __instance.CurRotation + 360) % 360) < Math.Min((__state - minValue + 360) % 360,
-                    (maxValue - __state + 360) % 360))
+            if (Math.Min((__instance.CurRotation - minValue + FullCircle) % FullCircle,
+                    (maxValue - __instance.CurRotation + FullCircle) % FullCircle) < Math.Min(
+                    (__state - minValue + FullCircle) % FullCircle,
+                    (maxValue - __state + FullCircle) % FullCircle))
             {
                 return;
             }
