@@ -1,5 +1,8 @@
 # Changelog for TurretIdlePosition
 
+1.5.7 - Added support for manned turrets
+
+
 1.5.6 - Only show gizmo on player turrets
 
 

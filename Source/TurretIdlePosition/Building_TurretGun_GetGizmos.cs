@@ -31,7 +31,7 @@ public static class Building_Turret_GetGizmos
         }
     }
 
-    public static void Postfix(Building_Turret __instance, ref IEnumerable<Gizmo> __result)
+    public static void Postfix(Building_Turret __instance, ref IEnumerable<Gizmo> __result, TurretTop ___top)
     {
         var positionGameComponent = TurretIdlePosition.turretIdlePositionGameComponent;
         if (positionGameComponent == null)
@@ -40,11 +40,6 @@ public static class Building_Turret_GetGizmos
         }
 
         if (!__instance.IsEverThreat)
-        {
-            return;
-        }
-
-        if (__instance.GetComp<CompMannable>() != null)
         {
             return;
         }
