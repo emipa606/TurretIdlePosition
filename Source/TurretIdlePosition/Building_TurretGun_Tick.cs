@@ -14,18 +14,26 @@ public static class Building_TurretGun_Tick
             return;
         }
 
-        var mannable = __instance.GetComp<CompMannable>();
-        if (mannable == null || mannable.MannedNow)
+        if (__instance.CurrentTarget != null)
         {
             return;
         }
 
-        if (TurretIdlePosition.IsAllowedRotation(__instance, ___top, ___top.CurRotation, out var minValue,
+        if (__instance.GetComp<CompMannable>()?.MannedNow == true)
+        {
+            return;
+        }
+
+        if (TurretIdlePosition.SelfRotatingTurrets.Contains(__instance.def))
+        {
+            return;
+        }
+
+        if (TurretIdlePosition.IsAllowedRotation(__instance, ___top.CurRotation, ___top.CurRotation, out var minValue,
                 out var maxValue))
         {
             return;
         }
-
 
         if (minValue > maxValue)
         {

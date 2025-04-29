@@ -5,6 +5,7 @@
 A mod I made after I overheard someone who wanted to make their turrets pointed away from their base when idle.
 You can set what degree the turret should point to a well as an optional allowed arc it can move in.
 Purely cosmetic, does not affect firing arc.
+Will also work on manned turrets that will reset to a position within the defined arc when unmanned.
 
 I hope someone may find it useful!
 

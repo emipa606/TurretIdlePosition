@@ -1,5 +1,8 @@
 # Changelog for TurretIdlePosition
 
+1.5.8 - Added support for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3446237098]CeleTech Arsenal MKIII[/url]
+
+
 1.5.7 - Added support for manned turrets
 
 

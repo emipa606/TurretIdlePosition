@@ -130,7 +130,9 @@ public class Dialog_TurretIdlePosition : Window
 
         var degreesWide = (int)Math.Max(deviation, 5);
         var center = buildingTurret.DrawPos;
-        Graphics.DrawMesh(MeshPool.pies[degreesWide * 2], center + new Vector3(0, 0.3f, 0),
+
+        Graphics.DrawMesh(TurretIdlePosition.GetMeshFromTurret(buildingTurret)[degreesWide * 2],
+            center + new Vector3(0, 1.5f, 0),
             Quaternion.AngleAxis(rotation + degreesWide - 90f, Vector3.up), TurretIdlePosition.arcMaterial,
             0);
         if (!extraTurrets.Any())
@@ -141,7 +143,8 @@ public class Dialog_TurretIdlePosition : Window
         foreach (var extraTurret in extraTurrets)
         {
             center = extraTurret.DrawPos;
-            Graphics.DrawMesh(MeshPool.pies[degreesWide * 2], center + new Vector3(0, 0.3f, 0),
+            Graphics.DrawMesh(TurretIdlePosition.GetMeshFromTurret(buildingTurret)[degreesWide * 2],
+                center + new Vector3(0, 1.5f, 0),
                 Quaternion.AngleAxis(rotation + degreesWide - 90f, Vector3.up),
                 TurretIdlePosition.arcMaterial,
                 0);

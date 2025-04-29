@@ -14,6 +14,7 @@ public static class TurretTop_TurretTopTick
     public static void Postfix(float __state, TurretTop __instance, Building_Turret ___parentTurret,
         ref int ___idleTurnTicksLeft, ref bool ___idleTurnClockwise)
     {
+        TurretIdlePosition.SelfRotatingTurrets.Add(___parentTurret.def);
         if (___parentTurret.CurrentTarget.IsValid)
         {
             return;
@@ -30,7 +31,7 @@ public static class TurretTop_TurretTopTick
             return;
         }
 
-        if (TurretIdlePosition.IsAllowedRotation(___parentTurret, __instance, __state, out _, out _))
+        if (TurretIdlePosition.IsAllowedRotation(___parentTurret, __instance.CurRotation, __state, out _, out _))
         {
             return;
         }
