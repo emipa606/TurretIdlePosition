@@ -8,18 +8,18 @@ namespace TurretIdlePosition;
 [HarmonyPatch]
 public static class Building_CMCTurretGun_Tick
 {
-    private static FieldInfo TopField;
-    private static PropertyInfo TopRotationProperty;
+    private static FieldInfo topFieldInfo;
+    private static PropertyInfo topRotationPropertyInfo;
 
     public static bool Prepare()
     {
-        return ModLister.GetActiveModWithIdentifier("TOT.CeleTech.MKIII") != null;
+        return ModLister.GetActiveModWithIdentifier("TOT.CeleTech.MKIII", true) != null;
     }
 
     public static MethodBase TargetMethod()
     {
-        TopField = AccessTools.Field("TOT_DLL_test.Building_CMCTurretGun:turrettop");
-        TopRotationProperty = AccessTools.Property("TOT_DLL_test.CMCTurretTop:DestRotation");
+        topFieldInfo = AccessTools.Field("TOT_DLL_test.Building_CMCTurretGun:turrettop");
+        topRotationPropertyInfo = AccessTools.Property("TOT_DLL_test.CMCTurretTop:DestRotation");
         return AccessTools.Method("TOT_DLL_test.Building_CMCTurretGun:Tick");
     }
 
@@ -45,19 +45,19 @@ public static class Building_CMCTurretGun_Tick
             return;
         }
 
-        var top = TopField.GetValue(__instance);
+        var top = topFieldInfo.GetValue(__instance);
         if (top == null)
         {
             return;
         }
 
-        var topRotationProperty = TopRotationProperty.GetValue(top);
-        if (topRotationProperty == null)
+        var rotationProperty = topRotationPropertyInfo.GetValue(top);
+        if (rotationProperty == null)
         {
             return;
         }
 
-        if (TurretIdlePosition.IsAllowedRotation(__instance, (float)topRotationProperty, (float)topRotationProperty,
+        if (TurretIdlePosition.IsAllowedRotation(__instance, (float)rotationProperty, (float)rotationProperty,
                 out var minValue,
                 out var maxValue))
         {
@@ -69,6 +69,6 @@ public static class Building_CMCTurretGun_Tick
             maxValue += TurretIdlePosition.FullCircle;
         }
 
-        TopRotationProperty.SetValue(top, Rand.Range(minValue, maxValue) % TurretIdlePosition.FullCircle);
+        topRotationPropertyInfo.SetValue(top, Rand.Range(minValue, maxValue) % TurretIdlePosition.FullCircle);
     }
 }

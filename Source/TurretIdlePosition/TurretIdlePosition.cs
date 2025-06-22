@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using RimWorld;
@@ -12,12 +13,12 @@ namespace TurretIdlePosition;
 public static class TurretIdlePosition
 {
     public const float FullCircle = 360f;
-    public static readonly Mesh[] PieOne = new Mesh[361];
-    public static readonly Mesh[] PieTwo = new Mesh[361];
-    public static readonly Mesh[] PieThree = new Mesh[361];
-    public static readonly Mesh[] PieFour = new Mesh[361];
-    public static readonly Mesh[] PieFive = new Mesh[361];
-    public static TurretIdlePositionGameComponent turretIdlePositionGameComponent;
+    private static readonly Mesh[] pieOne = new Mesh[361];
+    private static readonly Mesh[] pieTwo = new Mesh[361];
+    private static readonly Mesh[] pieThree = new Mesh[361];
+    private static readonly Mesh[] pieFour = new Mesh[361];
+    private static readonly Mesh[] pieFive = new Mesh[361];
+    public static TurretIdlePositionGameComponent TurretIdlePositionGameComponent;
     public static readonly HashSet<ThingDef> SelfRotatingTurrets = [];
 
     public static readonly Texture OffIcon = ContentFinder<Texture2D>.Get("UI/LimitOff");
@@ -33,11 +34,11 @@ public static class TurretIdlePosition
         new Harmony("Mlie.TurretIdlePosition").PatchAll(Assembly.GetExecutingAssembly());
         for (var i = 0; i < 361; i++)
         {
-            PieOne[i] = MakePieMesh(i, 1f);
-            PieTwo[i] = MakePieMesh(i, 2f);
-            PieThree[i] = MakePieMesh(i, 3f);
-            PieFour[i] = MakePieMesh(i, 4f);
-            PieFive[i] = MakePieMesh(i, 5f);
+            pieOne[i] = makePieMesh(i, 1f);
+            pieTwo[i] = makePieMesh(i, 2f);
+            pieThree[i] = makePieMesh(i, 3f);
+            pieFour[i] = makePieMesh(i, 4f);
+            pieFive[i] = makePieMesh(i, 5f);
         }
     }
 
@@ -46,12 +47,12 @@ public static class TurretIdlePosition
     {
         minValue = 0;
         maxValue = 0;
-        if (turretIdlePositionGameComponent == null)
+        if (TurretIdlePositionGameComponent == null)
         {
             return true;
         }
 
-        if (!turretIdlePositionGameComponent.TryGetTurretIdlePosition(parentTurret, out var tuple))
+        if (!TurretIdlePositionGameComponent.TryGetTurretIdlePosition(parentTurret, out var tuple))
         {
             return true;
         }
@@ -88,21 +89,21 @@ public static class TurretIdlePosition
         switch (turret.def.size.x)
         {
             case <= 1:
-                return PieOne;
+                return pieOne;
             case <= 2:
-                return PieTwo;
+                return pieTwo;
             case <= 3:
-                return PieThree;
+                return pieThree;
             case <= 4:
-                return PieFour;
+                return pieFour;
             default:
-                return PieFive;
+                return pieFive;
         }
     }
 
-    public static Mesh MakePieMesh(int degreesWide, float length)
+    private static Mesh makePieMesh(int degreesWide, float length)
     {
-        var VertsList = new List<Vector2> { new Vector2(0f, 0f) };
+        var vertsList = new List<Vector2> { new(0f, 0f) };
         for (var d = 0; d < degreesWide; d++)
         {
             var angle = d / 180f * Mathf.PI;
@@ -111,23 +112,23 @@ public static class TurretIdlePosition
                 x = (float)(length * 0.550000011920929 * Math.Cos(angle)),
                 y = (float)(length * 0.550000011920929 * Math.Sin(angle))
             };
-            VertsList.Add(result);
+            vertsList.Add(result);
         }
 
-        var Verts3D = new Vector3[VertsList.Count];
-        for (var i = 0; i < Verts3D.Length; i++)
+        var verts3D = new Vector3[vertsList.Count];
+        for (var i = 0; i < verts3D.Length; i++)
         {
-            Verts3D[i] = new Vector3(VertsList[i].x, 0f, VertsList[i].y);
+            verts3D[i] = new Vector3(vertsList[i].x, 0f, vertsList[i].y);
         }
 
-        var tr = new Triangulator(VertsList.ToArray());
+        var tr = new Triangulator(verts3D.ToList());
         var indices = tr.Triangulate();
         var mesh = new Mesh
         {
             name = "MakePieMesh()",
-            vertices = Verts3D,
-            uv = new Vector2[VertsList.Count],
-            triangles = indices
+            vertices = verts3D,
+            uv = new Vector2[vertsList.Count],
+            triangles = indices.ToArray()
         };
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();

@@ -7,14 +7,14 @@ namespace TurretIdlePosition;
 
 public class TurretIdlePositionGameComponent : GameComponent
 {
-    private Dictionary<Building_Turret, string> turretIdlePositions = new Dictionary<Building_Turret, string>();
+    private Dictionary<Building_Turret, string> turretIdlePositions = new();
 
     private List<Building_Turret> turretIdlePositionsKeys = [];
     private List<string> turretIdlePositionsValues = [];
 
     public TurretIdlePositionGameComponent(Game game)
     {
-        TurretIdlePosition.turretIdlePositionGameComponent = this;
+        TurretIdlePosition.TurretIdlePositionGameComponent = this;
     }
 
     public void AddTurretIdlePosition(Building_Turret turret, float rotation, float deviation)

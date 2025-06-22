@@ -4,7 +4,7 @@ using Verse;
 
 namespace TurretIdlePosition;
 
-[HarmonyPatch(typeof(Building_TurretGun), nameof(Building_TurretGun.Tick))]
+[HarmonyPatch(typeof(Building_TurretGun), "Tick")]
 public static class Building_TurretGun_Tick
 {
     public static void Postfix(Building_TurretGun __instance, TurretTop ___top)

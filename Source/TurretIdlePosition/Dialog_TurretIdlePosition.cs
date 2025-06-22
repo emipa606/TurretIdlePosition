@@ -25,12 +25,13 @@ public class Dialog_TurretIdlePosition : Window
             TurretIdlePosition.AllPossibleTurrets.Contains(selectedObject.GetType()) &&
             selectedObject != buildingTurret);
 
-        if (selectedTurrets.Any() == false)
+        var turretArray = selectedTurrets as object[] ?? selectedTurrets.ToArray();
+        if (!turretArray.Any())
         {
             return;
         }
 
-        foreach (var selectedTurret in selectedTurrets)
+        foreach (var selectedTurret in turretArray)
         {
             if (selectedTurret is not Building_Turret turretBuilding)
             {
@@ -41,9 +42,9 @@ public class Dialog_TurretIdlePosition : Window
         }
     }
 
-    public override Vector2 InitialSize => new Vector2(300, 170);
+    public override Vector2 InitialSize => new(300, 170);
 
-    private bool shiftIsHeld => Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+    private static bool ShiftIsHeld => Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
     public override void PostOpen()
     {
@@ -58,7 +59,7 @@ public class Dialog_TurretIdlePosition : Window
 
     public override void DoWindowContents(Rect inRect)
     {
-        var positionGameComponent = TurretIdlePosition.turretIdlePositionGameComponent;
+        var positionGameComponent = TurretIdlePosition.TurretIdlePositionGameComponent;
         if (positionGameComponent == null)
         {
             return;
@@ -66,26 +67,26 @@ public class Dialog_TurretIdlePosition : Window
 
         limited = positionGameComponent.TryGetTurretIdlePosition(buildingTurret, out var tuple);
         var wasLimited = limited;
-        var listing_Standard = new Listing_Standard();
-        listing_Standard.Begin(inRect);
-        listing_Standard.CheckboxLabeled("TIP.LimitArc".Translate(), ref limited);
+        var listingStandard = new Listing_Standard();
+        listingStandard.Begin(inRect);
+        listingStandard.CheckboxLabeled("TIP.LimitArc".Translate(), ref limited);
 
         if (limited != wasLimited && limited)
         {
             positionGameComponent.AddTurretIdlePosition(buildingTurret, 0, 0);
-            listing_Standard.End();
+            listingStandard.End();
             return;
         }
 
         if (limited)
         {
-            listing_Standard.Label("TIP.Rotation".Translate(tuple.Item1));
-            rotation = Widgets.HorizontalSlider(listing_Standard.GetRect(20), tuple.Item1, 0, 359f, false, null,
+            listingStandard.Label("TIP.Rotation".Translate(tuple.Item1));
+            rotation = Widgets.HorizontalSlider(listingStandard.GetRect(20), tuple.Item1, 0, 359f, false, null,
                 null, null, 1);
-            listing_Standard.Label("TIP.Deviation".Translate(tuple.Item2));
-            deviation = Widgets.HorizontalSlider(listing_Standard.GetRect(20), tuple.Item2, 0, 179f, false, null,
+            listingStandard.Label("TIP.Deviation".Translate(tuple.Item2));
+            deviation = Widgets.HorizontalSlider(listingStandard.GetRect(20), tuple.Item2, 0, 179f, false, null,
                 null, null, 1);
-            if (shiftIsHeld)
+            if (ShiftIsHeld)
             {
                 rotation = Mathf.Clamp((float)(Math.Round(rotation / 5.0) * 5), 0, 359f);
                 deviation = Mathf.Clamp((float)(Math.Round(deviation / 5.0) * 5), 0, 179f);
@@ -102,7 +103,7 @@ public class Dialog_TurretIdlePosition : Window
 
             var originalFont = Text.Font;
             Text.Font = GameFont.Tiny;
-            listing_Standard.Label("TIP.HoldShift".Translate());
+            listingStandard.Label("TIP.HoldShift".Translate());
             Text.Font = originalFont;
         }
         else
@@ -117,7 +118,7 @@ public class Dialog_TurretIdlePosition : Window
             }
         }
 
-        listing_Standard.End();
+        listingStandard.End();
     }
 
     public override void WindowUpdate()

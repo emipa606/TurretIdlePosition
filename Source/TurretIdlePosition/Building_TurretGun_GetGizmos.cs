@@ -33,7 +33,7 @@ public static class Building_Turret_GetGizmos
 
     public static void Postfix(Building_Turret __instance, ref IEnumerable<Gizmo> __result)
     {
-        var positionGameComponent = TurretIdlePosition.turretIdlePositionGameComponent;
+        var positionGameComponent = TurretIdlePosition.TurretIdlePositionGameComponent;
         if (positionGameComponent == null)
         {
             return;
