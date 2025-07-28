@@ -7,8 +7,8 @@ namespace TurretIdlePosition;
 
 public class TurretIdlePositionGameComponent : GameComponent
 {
+    private Rot4 originalShipRotation;
     private Dictionary<Building_Turret, string> turretIdlePositions = new();
-
     private List<Building_Turret> turretIdlePositionsKeys = [];
     private List<string> turretIdlePositionsValues = [];
 
@@ -25,6 +25,45 @@ public class TurretIdlePositionGameComponent : GameComponent
     public void RemoveTurretIdlePosition(Building_Turret turret)
     {
         turretIdlePositions.Remove(turret);
+    }
+
+    public void ThingPreMapSwap()
+    {
+        originalShipRotation = Find.CurrentGravship.Rotation;
+    }
+
+    public void ThingPostMapSwap()
+    {
+        var newShipRotation = Find.CurrentGravship.Rotation;
+        if (originalShipRotation == newShipRotation)
+        {
+            return;
+        }
+
+
+        foreach (var thing in Find.CurrentGravship.Things)
+        {
+            if (thing is not Building_Turret turret)
+            {
+                continue;
+            }
+
+            if (!turretIdlePositions.TryGetValue(turret, out var valueString))
+            {
+                return;
+            }
+
+            var turretRotation = float.Parse(valueString.Split('|')[0]);
+            var turretDeviation = float.Parse(valueString.Split('|')[1]);
+            var rotationDifference = newShipRotation.AsAngle - originalShipRotation.AsAngle;
+            turretRotation = (turretRotation + rotationDifference) % 360;
+            if (turretRotation < 0)
+            {
+                turretRotation += 360;
+            }
+
+            turretIdlePositions[turret] = $"{turretRotation}|{turretDeviation}";
+        }
     }
 
     public bool TryGetTurretIdlePosition(Building_Turret turret, out Tuple<float, float> values)
