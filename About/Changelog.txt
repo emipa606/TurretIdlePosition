@@ -1,5 +1,8 @@
 # Changelog for TurretIdlePosition
 
+1.6.2 - Compatibility fix for conflict with the combo of Modifiable Shuttle - Trailblazer and Discoveries
+
+
 1.6.1 - Turrets should now get the right idle rotation even after a gravship has rotated on landing
 
 

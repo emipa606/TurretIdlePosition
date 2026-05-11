@@ -25,6 +25,11 @@ public static class Building_Turret_GetGizmos
                     continue;
                 }
 
+                if (type.FullName == "Trailblazer.CETurretWrapper")
+                {
+                    continue;
+                }
+
                 TurretIdlePosition.AllPossibleTurrets.Add(type);
                 yield return getGizmoMethod;
             }
